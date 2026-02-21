@@ -1,4 +1,4 @@
-package kz.shyngys.springbootfilestorage.entity;
+package kz.shyngys.springbootfilestorage.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import kz.shyngys.springbootfilestorage.model.enumerated.EventStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

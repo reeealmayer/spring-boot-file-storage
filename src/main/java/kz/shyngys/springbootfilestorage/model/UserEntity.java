@@ -1,4 +1,4 @@
-package kz.shyngys.springbootfilestorage.entity;
+package kz.shyngys.springbootfilestorage.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -9,28 +9,33 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import kz.shyngys.springbootfilestorage.model.enumerated.UserRole;
+import kz.shyngys.springbootfilestorage.model.enumerated.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "files")
-@Data
+@Table(name = "users")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FileEntity {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String location;
-    @Enumerated(EnumType.STRING)
-    private FileStatus status;
-    @OneToMany(mappedBy = "file", cascade = CascadeType.ALL)
+    private String username;
+    private String password;
+    @Enumerated(value = EnumType.STRING)
+    private UserRole role;
+    @Enumerated(value = EnumType.STRING)
+    private UserStatus userStatus;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<EventEntity> events = new ArrayList<>();
 }
