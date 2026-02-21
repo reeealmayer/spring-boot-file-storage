@@ -29,7 +29,6 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
 
     // Database - JPA + R2DBC + MySQL
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("com.mysql:mysql-connector-j")
