@@ -1,7 +1,6 @@
 plugins {
     java
-    war
-    id("org.springframework.boot") version "4.0.2"
+    id("org.springframework.boot") version "3.4.2"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -20,23 +19,42 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-flyway")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    // Web
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
+
+    // Security + JWT
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("io.jsonwebtoken:jjwt-api:0.12.6")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
+
+    // Database - JPA + R2DBC + MySQL
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("com.mysql:mysql-connector-j")
+    implementation("io.asyncer:r2dbc-mysql:1.2.0")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    // Flyway
+    implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-mysql")
-    runtimeOnly("com.mysql:mysql-connector-j")
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat-runtime")
-    testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-flyway-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-security-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webflux-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-    testImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testImplementation("org.testcontainers:testcontainers-junit-jupiter")
-    testImplementation("org.testcontainers:testcontainers-mysql")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // AWS SDK
+    implementation(platform("software.amazon.awssdk:bom:2.26.0"))
+    implementation("software.amazon.awssdk:s3")
+
+    // Swagger
+    implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.5")
+
+    // Lombok + MapStruct
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+
+    // Test
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("io.projectreactor:reactor-test")
 }
 
 tasks.withType<Test> {

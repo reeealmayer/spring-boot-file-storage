@@ -6,8 +6,8 @@ services:
     container_name: mysql-dev
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: file-storage
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: file-storage-db
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
