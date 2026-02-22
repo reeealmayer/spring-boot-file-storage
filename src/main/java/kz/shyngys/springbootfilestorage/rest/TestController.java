@@ -2,6 +2,7 @@ package kz.shyngys.springbootfilestorage.rest;
 
 import kz.shyngys.springbootfilestorage.model.UserEntity;
 import kz.shyngys.springbootfilestorage.repository.UserRepository;
+import kz.shyngys.springbootfilestorage.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class TestController {
     private final UserRepository userRepository;
+    private final S3Service s3Service;
 
 
     @GetMapping("/test")
