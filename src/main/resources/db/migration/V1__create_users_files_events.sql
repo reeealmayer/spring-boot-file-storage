@@ -6,7 +6,7 @@ create table if not exists users
     role       varchar(60)  not null,
     status     varchar(50)  not null,
     created_at timestamp,
-    update_at  timestamp
+    updated_at timestamp
 );
 
 create table if not exists files

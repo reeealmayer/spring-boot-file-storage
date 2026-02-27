@@ -2,11 +2,6 @@ server:
   port: 8084
 
 spring:
-  r2dbc:
-    url: r2dbc:pool:mysql://localhost:3306/file-storage-db
-    username: user
-    password: password
-
   datasource:
     url: jdbc:mysql://localhost:3306/file-storage-db
     username: user
