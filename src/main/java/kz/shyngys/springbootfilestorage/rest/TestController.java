@@ -1,7 +1,7 @@
 package kz.shyngys.springbootfilestorage.rest;
 
 import kz.shyngys.springbootfilestorage.dto.UserResponse;
-import kz.shyngys.springbootfilestorage.model.UserEntity;
+import kz.shyngys.springbootfilestorage.model.User;
 import kz.shyngys.springbootfilestorage.repository.UserRepository;
 import kz.shyngys.springbootfilestorage.service.S3Service;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class TestController {
 
     @GetMapping("/test")
     public ResponseEntity<UserResponse> test() {
-        Optional<UserEntity> byId1 = userRepository.findById(1L);
-        UserEntity entity = byId1.get();
+        Optional<User> byId1 = userRepository.findById(1L);
+        User entity = byId1.get();
         UserResponse response = new UserResponse(
                 entity.getId(),
                 entity.getUsername(),
