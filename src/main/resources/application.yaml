@@ -20,3 +20,8 @@ minio:
   access-key: ${MINIO_ACCESS_KEY:minioadmin}
   secret-key: ${MINIO_SECRET_KEY:minioadmin}
   bucket: ${MINIO_BUCKET:files}
+
+jwt:
+  secret: testtesttesttesttesttesttesttesttestesttesttesttesttesttesttesttesttes
+  expiration: 604800
+  header: Authorization

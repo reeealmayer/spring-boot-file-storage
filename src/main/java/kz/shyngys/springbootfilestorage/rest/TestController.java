@@ -6,8 +6,11 @@ import kz.shyngys.springbootfilestorage.repository.UserRepository;
 import kz.shyngys.springbootfilestorage.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.Optional;
 
@@ -19,15 +22,21 @@ public class TestController {
 
 
     @GetMapping("/test")
-    public ResponseEntity<UserResponse> test() {
-        Optional<User> byId1 = userRepository.findById(1L);
-        User entity = byId1.get();
-        UserResponse response = new UserResponse(
-                entity.getId(),
-                entity.getUsername(),
-                entity.getRole(),
-                entity.getStatus()
-        );
-        return ResponseEntity.ok(response);
+    @PreAuthorize("hasAuthority('users:read')")
+    public Mono<UserResponse> test() {
+
+        return Mono.fromCallable(() -> {
+
+            User entity = userRepository.findById(1L)
+                    .orElseThrow();
+
+            return new UserResponse(
+                    entity.getId(),
+                    entity.getUsername(),
+                    entity.getRole(),
+                    entity.getStatus()
+            );
+
+        }).subscribeOn(Schedulers.boundedElastic());
     }
 }
