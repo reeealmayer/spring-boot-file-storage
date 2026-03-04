@@ -2,7 +2,8 @@ package kz.shyngys.springbootfilestorage.model.enumerated;
 
 public enum Permission {
     USERS_READ("users:read"),
-    USERS_WRITE("users:write");
+    USERS_WRITE("users:write"),
+    FILES_UPLOAD("files:upload");
 
     private final String permission;
 

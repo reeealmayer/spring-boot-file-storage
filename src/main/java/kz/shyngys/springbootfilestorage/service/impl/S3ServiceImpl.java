@@ -28,8 +28,8 @@ public class S3ServiceImpl implements S3Service {
     private String bucket;
 
     @Override
-    public String upload(MultipartFile file) throws IOException {
-        String key = UUID.randomUUID() + "_" + file.getOriginalFilename();
+    public String upload(String filename, String contentType, byte[] bytes) {
+        String key = UUID.randomUUID() + "_" + filename;
 
         ensureBucketExists();
 
@@ -37,10 +37,10 @@ public class S3ServiceImpl implements S3Service {
                 PutObjectRequest.builder()
                         .bucket(bucket)
                         .key(key)
-                        .contentType(file.getContentType())
-                        .contentLength(file.getSize())
+                        .contentType(contentType)
+                        .contentLength((long) bytes.length)
                         .build(),
-                RequestBody.fromBytes(file.getBytes())
+                RequestBody.fromBytes(bytes)
         );
 
         return endpoint + "/" + bucket + "/" + key;
