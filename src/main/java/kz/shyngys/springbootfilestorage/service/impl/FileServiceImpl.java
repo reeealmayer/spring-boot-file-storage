@@ -76,6 +76,19 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public Mono<List<FileResponseDto>> getByUserId(Long userId) {
+        return Mono.fromCallable(() ->
+                eventRepository.findAllByUserId(userId)
+                        .stream()
+                        .map(Event::getFile)
+                        .filter(f -> f != null && f.getStatus() == FileStatus.ACTIVE)
+                        .distinct()
+                        .map(this::toDto)
+                        .toList()
+        ).subscribeOn(Schedulers.boundedElastic());
+    }
+
+    @Override
     public Mono<Void> delete(Long id, Long userId) {
         return Mono.fromRunnable(() -> {
             File file = fileRepository.findById(id)
